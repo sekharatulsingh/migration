@@ -44,6 +44,3 @@ jobs:
       run: |
         cd /home/runner/work/migration/migration/
         npm test
-
-    - name: Use secret in a step
-      run: echo "Using secret API_KEY: ${{ secrets.API_KEY }}"
