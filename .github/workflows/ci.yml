@@ -13,25 +13,33 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Step to copy package.json to the target directory
+    # Step to verify the current directory and list files
+    - name: List files in the current directory (after checkout)
+      run: ls -alh
+
+    # Step to copy package.json from the workflow directory to the target directory
     - name: Copy package.json to target directory
       run: |
+        echo "Copying package.json"
         cp .github/workflows/package.json /home/runner/work/migration/migration/
-
+      
     # Verify the copy by listing files in the target directory
     - name: List files in the target directory
       run: ls -alh /home/runner/work/migration/migration/
 
+    # Set up Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '14'
 
+    # Install dependencies from the correct directory
     - name: Install dependencies
       run: |
         cd /home/runner/work/migration/migration/
         npm install
 
+    # Run tests from the correct directory
     - name: Run tests
       run: |
         cd /home/runner/work/migration/migration/
